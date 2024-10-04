@@ -7,62 +7,94 @@
 
 using namespace std;
 
+template <typename T, typename F>
+T* applyFunctionToElements(const T* input, size_t size, F func) {
+    T* output = new T[size];
+    for (size_t i = 0; i < size; ++i) {
+        output[i] = func(input[i]);
+    }
+    return output;
+}
+
+int toUpper(char a){
+    return toupper(a);
+}
+int toLower(char a){
+    return tolower(a);
+}
 // return length
 int findLength(char* str) {
-    int len = 0;
-
-    return len;
+    return strlen(str);
 }
 
 int findLength(string str) {
-    int len = 0;
-
-    return len;
+    return str.length();
 }
 
 // concat string
-char* concatString(char* str1, char* str2)
-{
-    return str1;
+char* concatString(char* str1, char* str2) {
+    int len1 = strlen(str1);
+    int len2 = strlen(str2);
+    int totalLen = len1 + len2 + 1;
+
+    char* result = new char[totalLen];
+
+    strcpy(result, str1);
+    strcat(result, str2);
+
+    return result;
 }
 
 string concatString(string str1, string str2)
 {
-    return str1;
+    return str1+str2;
 }
 
 // find pos of a char
 int findCharPos(char* str, char ch) {
     int pos = 0;
 
-    return pos; 
+    while (str[pos] != '\0') {
+        if (str[pos] == ch) {
+            return pos+1;
+        }
+        pos++;
+    }
+
+    return -1; // Character not found
 }
 
 int findCharPos(string str, char ch) {
     int pos = 0;
-
+    for (int i = 0; i < str.length(); i++) {
+        if (str[i] == ch) {
+            return i+1;
+        }
+    }
     return pos;
 }
 
 // to upper case
 char *toUpperCase(char *str) {
-    
-    return str;
+    return applyFunctionToElements(str,findLength(str),toUpper);
 }
 
 string toUpperCase(string str) {
-    
+    for (int i = 0; i < str.length(); i++) {
+        str[i] = toupper(str[i]);
+    }
     return str;
 }
 
 // to lower case
-char *toLowerCase(char *str) {
-    
-    return str;
+char *toLowerCase(char *str) {    
+    return applyFunctionToElements(str,findLength(str),toLower);
 }
 
 string toLowerCase(string str) {
-    
+    for (int i = 0; i < str.length(); i++) {
+        str[i] = tolower(str[i]);
+    }
     return str;
 }
 
